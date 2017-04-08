@@ -20,6 +20,7 @@ public class ConnectionFactory {
             conn = (Connection) DriverManager.getConnection(url,user,password);
         }catch(ClassNotFoundException | SQLException ex){
             System.out.println("Erro ao carregar o DB" +ex);
+            return null;
         }
         return conn;
     }
