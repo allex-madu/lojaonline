@@ -3,6 +3,10 @@ package lojaonline.dao;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
+import java.sql.Statement;
+import java.util.ArrayList;
+import java.util.List;
+import javax.resource.cci.ResultSet;
 import lojaonline.db.util.ConnectionFactory;
 import lojaonline.model.Cliente;
 
@@ -15,7 +19,7 @@ public class ClienteDAO {
     private static final String EDITAR = "UPDATE cliente SET nome_cliente = ?, sobrenome_cliente = ? WHERE id_cliente = ?";
     private static final String ELIMINAR = "DELETE FROM cliente WHERE id_cliente = ?";
     private static final String LISTAR_POR_CODIGO = "SELECT * FROM cliente WHERE id_cliente = ?";
-    private static final String lISTAR_TUDO = "SELECT * FROM cliente";
+    private static final String LISTAR_TUDO = "SELECT * FROM cliente";
     
     Connection conn;
     public ClienteDAO(){
@@ -56,7 +60,53 @@ public class ClienteDAO {
         }catch(SQLException ex){
             ex.printStackTrace();
         }        
-    }    
+    } 
+    
+    public List<Cliente> listaTodos(){
+        List<Cliente> clientes = new ArrayList<>();
+        try {
+            Statement st = conn.createStatement();
+            ResultSet rs = (ResultSet) st.executeQuery(LISTAR_TUDO);
+            while(rs.next()){
+                Cliente cliente = new Cliente();
+                popularCliente(cliente, rs);
+                clientes.add(cliente);
+            }
+            rs.close();
+            st.close();
+        } catch (SQLException ex) {
+            ex.printStackTrace();
+        }
+        
+        return clientes;    
+    }
+    
+    public Cliente buscarPorId(int idCliente){
+        Cliente cliente = new Cliente();
+        try{
+            PreparedStatement ps = conn.prepareStatement(LISTAR_POR_CODIGO);
+            ps.setInt(1, idCliente);
+            ResultSet rs = (ResultSet) ps.executeQuery();
+            while(rs.next()){
+                popularCliente(cliente, rs);
+                
+            }
+            rs.close();           
+        }catch(SQLException ex){
+            ex.printStackTrace();        
+        }
+        return cliente;
+    }
+
+    private void popularCliente(Cliente cliente, ResultSet rs) {
+       try{
+           cliente.setIdCliente(rs.getInt("id_cliente"));
+           cliente.setNomeCliente(rs.getString("nome_cliente"));
+           cliente.setSobrenomeCliente(rs.getString("sobrenome_cliente"));
+       }catch(SQLException ex){
+           ex.printStackTrace();
+       }     
+    }
             
             
             
