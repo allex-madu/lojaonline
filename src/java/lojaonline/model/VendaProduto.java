@@ -56,8 +56,4 @@ public class VendaProduto implements Serializable{
     public String toString() {
         return "VendaProduto{" + '}';
     }
-    
-    
-    
-    
 }
