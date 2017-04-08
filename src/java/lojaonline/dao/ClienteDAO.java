@@ -26,15 +26,37 @@ public class ClienteDAO {
         try{
             PreparedStatement ps = conn.prepareStatement(INSERIR);
             ps.setString(1, cliente.getNomeCliente());
-            ps.setString(1, cliente.getSobrenomeCliente());
+            ps.setString(2, cliente.getSobrenomeCliente());
             ps.executeUpdate();
             ps.close();
         }catch(SQLException ex){
             ex.printStackTrace();
         }
+    }
     
+    public void editar(Cliente cliente){
+        try{
+            PreparedStatement ps = conn.prepareStatement(EDITAR);
+            ps.setString(1, cliente.getNomeCliente());
+            ps.setString(2, cliente.getSobrenomeCliente());
+            ps.setInt(3, cliente.getIdCliente());
+            ps.executeUpdate();
+            ps.close();
+        }catch(SQLException ex){
+            ex.printStackTrace();
+        }
     }
             
+    public void eliminar(Cliente cliente){
+        try{
+            PreparedStatement ps = conn.prepareStatement(ELIMINAR);
+            ps.setInt(1, cliente.getIdCliente());
+            ps.executeUpdate();
+            ps.close();
+        }catch(SQLException ex){
+            ex.printStackTrace();
+        }        
+    }    
             
             
             
@@ -55,9 +77,4 @@ public class ClienteDAO {
             
             
             
-            
-            
-            
-
-    
 }
