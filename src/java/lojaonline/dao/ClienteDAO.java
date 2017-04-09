@@ -2,11 +2,11 @@ package lojaonline.dao;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
-import javax.resource.cci.ResultSet;
 import lojaonline.db.util.ConnectionFactory;
 import lojaonline.model.Cliente;
 
@@ -15,7 +15,7 @@ import lojaonline.model.Cliente;
  */
 public class ClienteDAO {
 
-    private static final String INSERIR = "INSERT INTO cliente (nome_cliente,sobrenome_cliente) VALUES (?, ?)";
+    private static final String INSERIR = "INSERT INTO cliente(nome_cliente,sobrenome_cliente) VALUES (?, ?)";
     private static final String EDITAR = "UPDATE cliente SET nome_cliente = ?, sobrenome_cliente = ? WHERE id_cliente = ?";
     private static final String ELIMINAR = "DELETE FROM cliente WHERE id_cliente = ?";
     private static final String LISTAR_POR_CODIGO = "SELECT * FROM cliente WHERE id_cliente = ?";
@@ -66,10 +66,10 @@ public class ClienteDAO {
         List<Cliente> clientes = new ArrayList<>();
         try {
             Statement st = conn.createStatement();
-            ResultSet rs = (ResultSet) st.executeQuery(LISTAR_TUDO);
+            ResultSet rs = st.executeQuery(LISTAR_TUDO);
             while(rs.next()){
                 Cliente cliente = new Cliente();
-                popularCliente(cliente, rs);
+                popularCliente(cliente, (ResultSet) rs);
                 clientes.add(cliente);
             }
             rs.close();
@@ -86,7 +86,7 @@ public class ClienteDAO {
         try{
             PreparedStatement ps = conn.prepareStatement(LISTAR_POR_CODIGO);
             ps.setInt(1, idCliente);
-            ResultSet rs = (ResultSet) ps.executeQuery();
+            ResultSet rs = ps.executeQuery();
             while(rs.next()){
                 popularCliente(cliente, rs);
                 

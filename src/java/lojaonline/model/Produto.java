@@ -54,8 +54,8 @@ public class Produto  implements Serializable
 
     @Override
     public int hashCode() {
-        int hash = 3;
-        hash = 97 * hash + this.idProduto;
+        int hash = 5;
+        hash = 11 * hash + this.idProduto;
         return hash;
     }
 
@@ -75,7 +75,7 @@ public class Produto  implements Serializable
             return false;
         }
         return true;
-    }
+    }   
 
     @Override
     public String toString() {
