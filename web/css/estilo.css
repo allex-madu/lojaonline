@@ -1,0 +1,21 @@
+body{
+    padding-top: 50px;
+}
+
+.row-centered{
+    text-align: center;
+}
+.col-centered{
+    display: inline-block;
+    float: none;
+    text-align: center;
+    margin-right: -4px;
+}
+
+.botao{
+    margin-left: 290px;
+}
+
+h2.titulo_produto{
+   margin-left: 290px; 
+}
