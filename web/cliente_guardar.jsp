@@ -4,7 +4,7 @@
     Author     : Allex
 --%>
 
-<%@page contentType="text/html" pageEncoding="UTF-8"%>
+<%@page contentType="text/html" pageEncoding="UTF-8" %>
 <!DOCTYPE html>
 <html>
     <head>
@@ -16,7 +16,7 @@
         <script src="js/jquery-3.1.0.min.js"></script>
         <title>Loja Online - Novo Produto</title>
     </head>
-    
+
     <body>
         <div class="container">
             <form role="form" class="form-horizontal">
@@ -37,11 +37,7 @@
                     <button type="submit" class="btn btn-primary botao">Guardar</button>
                 </div>
             </form>
-            
-            
         </div>
-
-
     </body>
 </html>
 
